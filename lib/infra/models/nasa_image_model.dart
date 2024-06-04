@@ -30,8 +30,17 @@ class NasaImageModel extends NasaImage {
       'title': title,
       'explanation': explanation,
       'url': url,
-      'date': date.millisecondsSinceEpoch,
+      'date': date.format(),
     };
+  }
+
+  factory NasaImageModel.fromEntity(NasaImage entity) {
+    return NasaImageModel(
+      title: entity.title,
+      explanation: entity.explanation,
+      url: entity.url,
+      date: entity.date,
+    );
   }
 
   factory NasaImageModel.fromMap(Map<String, dynamic> map) {
