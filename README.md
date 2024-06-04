@@ -11,3 +11,4 @@ NASA's "Astronomy Picture of the Day" - Flutter version.
 - GetIt (dependency injection)
 - Cubit (state management)
 - Hive (local storage)
+- Dio (network requests)
