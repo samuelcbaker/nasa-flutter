@@ -2,7 +2,7 @@ class NasaImage {
   final String title;
   final String explanation;
   final String url;
-  final String date;
+  final DateTime date;
 
   NasaImage(
       {required this.title,
