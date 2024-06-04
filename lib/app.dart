@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nasa_flutter/view/screens/list_images_screen.dart';
 
 class NasaApp extends StatelessWidget {
   const NasaApp({super.key});
@@ -10,7 +11,7 @@ class NasaApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
       ),
-      home: Container(),
+      home: const ListImagesScreen(),
     );
   }
 }
