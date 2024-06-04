@@ -26,7 +26,15 @@ class ApiImageDatasourceImpl implements ApiImageDatasource {
       throw NetworkException();
     }
 
-    return (response.data as List)
+    // Remove other media types fomr list
+    final filteredReponse = (response.data as List).where(
+      (image) {
+        final imageJson = image as Map<String, dynamic>;
+        return imageJson['media_type'] == 'image';
+      },
+    ).toList();
+
+    return filteredReponse
         .map((image) => NasaImageModel.fromMap(image as Map<String, dynamic>))
         .toList();
   }
