@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -9,6 +10,8 @@ import 'package:nasa_flutter/domain/usecases/get_images_usecase.dart';
 import 'package:nasa_flutter/infra/datasources/api_image_datasource.dart';
 import 'package:nasa_flutter/infra/datasources/local_image_datasource.dart';
 import 'package:nasa_flutter/infra/repositories/image_repository_impl.dart';
+import 'package:nasa_flutter/view/cubit/connectivity/connectivity_cubit.dart';
+import 'package:nasa_flutter/view/cubit/list_images/list_images_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -17,6 +20,7 @@ class AppInjection {
     //Libraries
     getIt.registerSingleton(_getDioInstance());
     final imageBox = await _getImageBox();
+    getIt.registerSingleton(Connectivity());
 
     // Datasources
     getIt.registerFactory<ApiImageDatasource>(
@@ -39,6 +43,12 @@ class AppInjection {
     );
 
     //Cubit
+    getIt.registerFactory<ListImagesCubit>(
+      () => ListImagesCubit(getImagesUsecase: getIt()),
+    );
+    getIt.registerFactory<ConnectivityCubit>(
+      () => ConnectivityCubit(connectivity: getIt()),
+    );
   }
 
   static Dio _getDioInstance() {
