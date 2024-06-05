@@ -5,6 +5,8 @@ import 'package:nasa_flutter/view/cubit/connectivity/connectivity_cubit.dart';
 import 'package:nasa_flutter/view/cubit/connectivity/connectivity_state.dart';
 import 'package:nasa_flutter/view/cubit/list_images/list_images_cubit.dart';
 import 'package:nasa_flutter/view/cubit/list_images/list_images_state.dart';
+import 'package:nasa_flutter/view/screens/image_detail_screen.dart';
+import 'package:nasa_flutter/view/widgets/image_widget.dart';
 
 class ListImagesScreen extends StatelessWidget {
   const ListImagesScreen({super.key});
@@ -81,7 +83,14 @@ class ListImagesScreen extends StatelessWidget {
                       itemBuilder: (ctx, index) {
                         final image = state.images[index];
                         return InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ImageDetailScreen(image: image),
+                              ),
+                            );
+                          },
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius:
@@ -105,7 +114,7 @@ class ListImagesScreen extends StatelessWidget {
                                   const SizedBox(
                                     height: 8,
                                   ),
-                                  _ImageWidget(
+                                  ImageWidget(
                                     url: image.url,
                                   ),
                                   const SizedBox(
@@ -114,8 +123,6 @@ class ListImagesScreen extends StatelessWidget {
                                   Text(
                                     'Date: ${image.date.format()}',
                                     style: const TextStyle(fontSize: 16),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
                                     textAlign: TextAlign.center,
                                   )
                                 ],
@@ -134,36 +141,6 @@ class ListImagesScreen extends StatelessWidget {
           ),
         ),
       )),
-    );
-  }
-}
-
-class _ImageWidget extends StatelessWidget {
-  final String url;
-  const _ImageWidget({required this.url});
-
-  @override
-  Widget build(BuildContext context) {
-    return Image.network(
-      url,
-      fit: BoxFit.fitHeight,
-      height: 250,
-      errorBuilder: (context, error, stackTrace) => const Text(
-        '(Error on load image)',
-        style: TextStyle(fontStyle: FontStyle.italic),
-      ),
-      loadingBuilder: (BuildContext context, Widget child,
-          ImageChunkEvent? loadingProgress) {
-        if (loadingProgress == null) return child;
-        return Center(
-          child: CircularProgressIndicator(
-            value: loadingProgress.expectedTotalBytes != null
-                ? loadingProgress.cumulativeBytesLoaded /
-                    loadingProgress.expectedTotalBytes!
-                : null,
-          ),
-        );
-      },
     );
   }
 }
