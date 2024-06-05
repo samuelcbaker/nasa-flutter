@@ -56,7 +56,7 @@ class ListImagesScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text(
-                            'Ops, some error occours',
+                            'Ops, an error occurred',
                             style: TextStyle(
                               fontSize: 16,
                             ),

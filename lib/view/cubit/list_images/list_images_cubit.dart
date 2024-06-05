@@ -20,7 +20,6 @@ class ListImagesCubit extends Cubit<ListImagesState> {
     try {
       emit(LoadingState());
       final images = await getImagesUsecase(GetImagesParams(page: 1));
-      // throw Exception();
       emit(LoadedState(images));
     } catch (e) {
       emit(ErrorState());

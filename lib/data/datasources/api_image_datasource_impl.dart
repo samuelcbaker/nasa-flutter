@@ -36,6 +36,9 @@ class ApiImageDatasourceImpl implements ApiImageDatasource {
 
     return filteredReponse
         .map((image) => NasaImageModel.fromMap(image as Map<String, dynamic>))
+        .toList()
+        // The reverse was done, because the Nasa API returns the list with the oldest item first
+        .reversed
         .toList();
   }
 }
