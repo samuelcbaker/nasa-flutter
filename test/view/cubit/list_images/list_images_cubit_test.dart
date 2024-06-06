@@ -52,4 +52,91 @@ void main() {
     },
     expect: () => [LoadingState(), ErrorState()],
   );
+
+  blocTest<ListImagesCubit, ListImagesState>(
+    'should reset list and emit loaded state',
+    build: () => cubit,
+    act: (_) {
+      when(
+        () => usecase(any()),
+      ).thenAnswer((_) async => imagesMock);
+
+      cubit.reload();
+    },
+    expect: () => [LoadingState(), LoadedState(imagesMock)],
+  );
+
+  group('pagination', () {
+    blocTest<ListImagesCubit, ListImagesState>(
+      'should get another page',
+      build: () => cubit,
+      seed: () => LoadedState(const []),
+      act: (_) {
+        when(
+          () => usecase(any()),
+        ).thenAnswer((_) async => imagesMock);
+
+        cubit.getNextPage();
+      },
+      expect: () =>
+          [LoadingAnotherPageState(imagesMock), LoadedState(imagesMock)],
+    );
+
+    blocTest<ListImagesCubit, ListImagesState>(
+      'shouldnt get another page if page is loading',
+      build: () => cubit,
+      seed: () => LoadingState(),
+      act: (_) {
+        when(
+          () => usecase(any()),
+        ).thenAnswer((_) async => imagesMock);
+
+        cubit.getNextPage();
+      },
+      expect: () => [],
+    );
+
+    blocTest<ListImagesCubit, ListImagesState>(
+      'shouldnt get another page if page is error',
+      build: () => cubit,
+      seed: () => ErrorState(),
+      act: (_) {
+        when(
+          () => usecase(any()),
+        ).thenAnswer((_) async => imagesMock);
+
+        cubit.getNextPage();
+      },
+      expect: () => [],
+    );
+
+    blocTest<ListImagesCubit, ListImagesState>(
+      'shouldnt get another page if page is loading another page',
+      build: () => cubit,
+      seed: () => LoadingAnotherPageState(const []),
+      act: (_) {
+        when(
+          () => usecase(any()),
+        ).thenAnswer((_) async => imagesMock);
+
+        cubit.getNextPage();
+      },
+      expect: () => [],
+    );
+
+    blocTest<ListImagesCubit, ListImagesState>(
+      'shouldnt get another page if is offline',
+      build: () => cubit,
+      seed: () => LoadedState(const []),
+      act: (_) {
+        when(
+          () => usecase(any()),
+        ).thenAnswer((_) async => imagesMock);
+
+        cubit.setIsOffline(true);
+        cubit.getNextPage();
+      },
+      expect: () => [],
+    );
+  });
 }
