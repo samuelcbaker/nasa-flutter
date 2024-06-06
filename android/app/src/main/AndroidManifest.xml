@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="nasa_flutter"
+        android:label="Nasa Flutter"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
