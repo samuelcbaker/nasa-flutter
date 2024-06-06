@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nasa_flutter/domain/entities/nasa_image.dart';
 import 'package:nasa_flutter/domain/usecases/get_images_usecase.dart';
+import 'package:nasa_flutter/extensions/date_extension.dart';
 import 'package:nasa_flutter/extensions/list_extension.dart';
 import 'package:nasa_flutter/view/cubit/list_images/list_images_state.dart';
 
@@ -17,6 +18,9 @@ class ListImagesCubit extends Cubit<ListImagesState> {
   final ScrollController scrollController = ScrollController();
   int actualPage = 1;
   List<NasaImage> listImages = [];
+
+  // Variable to control search bar
+  final TextEditingController searchEditingController = TextEditingController();
 
   // To feedback user and controll pagination
   bool _isOffline = false;
@@ -40,6 +44,7 @@ class ListImagesCubit extends Cubit<ListImagesState> {
   void _resetList() {
     actualPage = 1;
     listImages = [];
+    searchEditingController.clear();
   }
 
   void reload() {
@@ -64,5 +69,19 @@ class ListImagesCubit extends Cubit<ListImagesState> {
         }
       }
     });
+  }
+
+  void onChangedSearchBar(String str) {
+    if (str.isEmpty) {
+      emit(LoadedState(listImages));
+      return;
+    }
+
+    final filteredList = listImages
+        .where((image) =>
+            // Filter by title and date
+            '${image.title.toLowerCase()}${image.date.format()}'.contains(str))
+        .toList();
+    emit(FilteredImagesState(filteredList));
   }
 }
