@@ -17,7 +17,13 @@ void main() {
       title: 'title',
       explanation: 'explanation',
       url: 'url',
-      date: DateTime.now(),
+      date: DateTime(2023, 01, 01),
+    ),
+    NasaImage(
+      title: 'title2',
+      explanation: 'explanation2',
+      url: 'url2',
+      date: DateTime(2024, 01, 01),
     ),
   ];
 
@@ -137,6 +143,45 @@ void main() {
         cubit.getNextPage();
       },
       expect: () => [],
+    );
+  });
+
+  group('onChangedSearchBar', () {
+    blocTest<ListImagesCubit, ListImagesState>(
+      'should filter by title if type on search field',
+      build: () => cubit,
+      act: (_) {
+        cubit.listImages = imagesMock;
+
+        cubit.onChangedSearchBar('title2');
+      },
+      expect: () => [
+        const TypeMatcher<FilteredImagesState>(),
+      ],
+    );
+
+    blocTest<ListImagesCubit, ListImagesState>(
+      'should filter by date if type on search field',
+      build: () => cubit,
+      act: (_) {
+        cubit.listImages = imagesMock;
+
+        cubit.onChangedSearchBar('2024');
+      },
+      expect: () => [
+        const TypeMatcher<FilteredImagesState>(),
+      ],
+    );
+
+    blocTest<ListImagesCubit, ListImagesState>(
+      'shouldnt filter if type empty',
+      build: () => cubit,
+      act: (_) {
+        cubit.listImages = imagesMock;
+
+        cubit.onChangedSearchBar('');
+      },
+      expect: () => [LoadedState(imagesMock)],
     );
   });
 }

@@ -8,6 +8,7 @@ import 'package:nasa_flutter/view/cubit/list_images/list_images_cubit.dart';
 import 'package:nasa_flutter/view/cubit/list_images/list_images_state.dart';
 import 'package:nasa_flutter/view/screens/image_detail_screen.dart';
 import 'package:nasa_flutter/view/widgets/image_widget.dart';
+import 'package:nasa_flutter/view/widgets/search_bar_widget.dart';
 
 class ListImagesScreen extends StatelessWidget {
   const ListImagesScreen({super.key});
@@ -29,6 +30,15 @@ class ListImagesScreen extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
+              SearchBarWidget(
+                hint: 'Search images',
+                onChanged: context.read<ListImagesCubit>().onChangedSearchBar,
+                controller:
+                    context.read<ListImagesCubit>().searchEditingController,
+              ),
+              const SizedBox(
+                height: 16,
+              ),
               BlocBuilder<ConnectivityCubit, ConnectivityState>(
                   builder: (context, state) {
                 if (state is OfflineState) {
@@ -81,6 +91,10 @@ class ListImagesScreen extends StatelessWidget {
                     return _ListImagesWidget(
                       images: state.loadedImages,
                     );
+                  } else if (state is FilteredImagesState) {
+                    return _ListImagesWidget(
+                      images: state.images,
+                    );
                   } else {
                     return const SizedBox.shrink();
                   }
@@ -111,6 +125,16 @@ class _ListImagesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (images.isEmpty) {
+      return const Text(
+        'No images found',
+        style: TextStyle(
+          fontSize: 16,
+        ),
+        textAlign: TextAlign.center,
+      );
+    }
+
     return ListView.separated(
       physics: const ClampingScrollPhysics(),
       controller: context.read<ListImagesCubit>().scrollController,

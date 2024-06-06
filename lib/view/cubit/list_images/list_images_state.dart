@@ -31,6 +31,15 @@ class LoadedState extends ListImagesState {
   List<Object> get props => [images];
 }
 
+class FilteredImagesState extends ListImagesState {
+  FilteredImagesState(this.images);
+
+  final List<NasaImage> images;
+
+  @override
+  List<Object> get props => [images];
+}
+
 class ErrorState extends ListImagesState {
   @override
   List<Object> get props => [];
