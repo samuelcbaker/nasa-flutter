@@ -8,6 +8,7 @@ import 'package:nasa_flutter/view/cubit/list_images/list_images_cubit.dart';
 import 'package:nasa_flutter/view/cubit/list_images/list_images_state.dart';
 import 'package:nasa_flutter/view/screens/image_detail_screen.dart';
 import 'package:nasa_flutter/view/widgets/image_widget.dart';
+import 'package:nasa_flutter/view/widgets/search_bar_widget.dart';
 
 class ListImagesScreen extends StatelessWidget {
   const ListImagesScreen({super.key});
@@ -29,6 +30,10 @@ class ListImagesScreen extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
+              SearchBarWidget(hint: 'Search images', onChanged: (value) {}),
+              const SizedBox(
+                height: 16,
+              ),
               BlocBuilder<ConnectivityCubit, ConnectivityState>(
                   builder: (context, state) {
                 if (state is OfflineState) {
