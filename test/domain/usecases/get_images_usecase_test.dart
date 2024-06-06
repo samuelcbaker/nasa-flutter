@@ -16,6 +16,34 @@ void main() {
     usecase = GetImagesUsecase(repository: repository);
   });
 
+  test('should call first page and sort list', () async {
+    when(
+      () => repository.getImages(any(), any()),
+    ).thenAnswer((_) async => [
+          NasaImage(
+              title: 'titleOld',
+              explanation: 'explanationOld',
+              url: 'urlOld',
+              date: DateTime.now().subtract(const Duration(hours: 2))),
+          NasaImage(
+              title: 'title',
+              explanation: 'explanation',
+              url: 'url',
+              date: DateTime.now()),
+          //...
+        ]);
+
+    final result = await usecase(GetImagesParams());
+
+    expect(result[0].title, 'title');
+    expect(result[1].title, 'titleOld');
+
+    final now = DateTime.now().onlyDate();
+    verify(() =>
+            repository.getImages(now.subtract(const Duration(days: 4)), now))
+        .called(1);
+  });
+
   test('should call first page with today and 4 days ago', () async {
     when(
       () => repository.getImages(any(), any()),

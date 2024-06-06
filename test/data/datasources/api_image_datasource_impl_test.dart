@@ -33,14 +33,14 @@ void main() {
     );
 
     expect(response.length, 3);
-    expect(response[2].title, 'Stereo Helene');
-    expect(response[2].explanation,
+    expect(response[0].title, 'Stereo Helene');
+    expect(response[0].explanation,
         "Get out your red/blue glasses and float next to Helene, small, icy moon of Saturn. Appropriately named, Helene is a Trojan moon, so called because it orbits at a Lagrange point. A Lagrange point is a gravitationally stable position near two massive bodies, in this case Saturn and larger moon Dione. In fact, irregularly shaped ( about 36 by 32 by 30 kilometers) Helene orbits at Dione's leading Lagrange point while brotherly ice moon Polydeuces follows at Dione's trailing Lagrange point. The sharp stereo anaglyph was constructed from two Cassini images captured during a close flyby in 2011. It shows part of the Saturn-facing hemisphere of Helene mottled with craters and gully-like features.");
-    expect(response[2].url,
+    expect(response[0].url,
         'https://apod.nasa.gov/apod/image/2406/N00172886_92_beltramini.jpg');
-    expect(response[2].date.year, 2024);
-    expect(response[2].date.month, 6);
-    expect(response[2].date.day, 1);
+    expect(response[0].date.year, 2024);
+    expect(response[0].date.month, 6);
+    expect(response[0].date.day, 1);
 
     verify(
       () => dio.get('/planetary/apod', queryParameters: {
