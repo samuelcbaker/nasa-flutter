@@ -74,6 +74,8 @@ flutter run
 - [equatable](https://pub.dev/packages/equatable) → compare objects and help in tests
 - [connectivity_plus](https://pub.dev/packages/connectivity_plus) → verify if user is offline
 - [mocktail](https://pub.dev/packages/mocktail) → mock objects in test
+- [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons) → add launcher icons
+- [flutter_native_splash](https://pub.dev/packages/flutter_native_splash) → add icon on native splash
 
 ### Folder Structure
 
