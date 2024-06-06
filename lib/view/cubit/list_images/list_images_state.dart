@@ -13,6 +13,15 @@ class LoadingState extends ListImagesState {
   List<Object> get props => [];
 }
 
+class LoadingAnotherPageState extends ListImagesState {
+  LoadingAnotherPageState(this.loadedImages);
+
+  final List<NasaImage> loadedImages;
+
+  @override
+  List<Object> get props => [loadedImages];
+}
+
 class LoadedState extends ListImagesState {
   LoadedState(this.images);
 

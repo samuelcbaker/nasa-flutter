@@ -24,7 +24,12 @@ class GetImagesUsecase {
         endDate.subtract(Duration(days: params.numberOfItems - 1));
 
     // Call repository to search images
-    return repository.getImages(startDate, endDate);
+    final images = await repository.getImages(startDate, endDate);
+
+    // Desc sort images by date
+    images.sort((a, b) => b.date.compareTo(a.date));
+
+    return images;
   }
 }
 
