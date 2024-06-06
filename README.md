@@ -1,3 +1,5 @@
+<img src="/assets/icon.png" height="50">
+
 # Nasa Picture of the Day - Flutter Project
 
 A Flutter application to visualize Nasa pictures of the day. This Flutter application was developed using Clean Dart architecture and for state management we use Bloc.
