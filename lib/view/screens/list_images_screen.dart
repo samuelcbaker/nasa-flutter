@@ -166,6 +166,7 @@ class _ListImagesWidget extends StatelessWidget {
                 children: [
                   Text(
                     image.title,
+                    key: Key('title_key_$index'),
                     style: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.bold),
                     overflow: TextOverflow.ellipsis,
@@ -176,6 +177,7 @@ class _ListImagesWidget extends StatelessWidget {
                     height: 8,
                   ),
                   ImageWidget(
+                    key: Key('image_key_$index'),
                     url: image.url,
                   ),
                   const SizedBox(
@@ -183,6 +185,7 @@ class _ListImagesWidget extends StatelessWidget {
                   ),
                   Text(
                     'Date: ${image.date.format()}',
+                    key: Key('date_key_$index'),
                     style: const TextStyle(fontSize: 16),
                     textAlign: TextAlign.center,
                   )
