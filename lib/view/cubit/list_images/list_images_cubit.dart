@@ -80,7 +80,8 @@ class ListImagesCubit extends Cubit<ListImagesState> {
     final filteredList = listImages
         .where((image) =>
             // Filter by title and date
-            '${image.title.toLowerCase()}${image.date.format()}'.contains(str))
+            '${image.title.toLowerCase()}${image.date.format()}'
+                .contains(str.toLowerCase()))
         .toList();
     emit(FilteredImagesState(filteredList));
   }
