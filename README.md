@@ -76,6 +76,7 @@ flutter run
 - [mocktail](https://pub.dev/packages/mocktail) → mock objects in test
 - [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons) → add launcher icons
 - [flutter_native_splash](https://pub.dev/packages/flutter_native_splash) → add icon on native splash
+- [integration_test](https://docs.flutter.dev/testing/integration-tests) → integration tests framework
 
 ### Folder Structure
 
@@ -179,9 +180,9 @@ view/
     |- search_bar_widget.dart
 ```
 
-### Tests
+### Unit Tests
 
-We made a unit tests for main layers. This is our test folder structure:
+We made the unit tests for main layers. This is our test folder structure:
 
 ```
 test/
@@ -190,6 +191,29 @@ test/
 |- infra/
 |- mock/
 |- view/
+```
+
+Run the following command on your terminal to execute all unit tests:
+
+```
+flutter test
+```
+
+### Integration Tests
+
+We made the integration tests for list view screen. This is our integration test folder structure:
+
+```
+integration_test/
+|- view/
+    |- screens/
+        |- list_images_screen_test.dart
+```
+
+Run the following command on your terminal to execute all integration tests:
+
+```
+flutter test ./integration_test
 ```
 
 ### main.dart and app.dart
