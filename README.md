@@ -247,6 +247,10 @@ class NasaApp extends StatelessWidget {
 }
 ```
 
+## Demonstration Video
+
+<img src="/assets/demo-video.gif" height="800">
+
 ## Conclusion
 
 We can always improve our projects. Thanks!
