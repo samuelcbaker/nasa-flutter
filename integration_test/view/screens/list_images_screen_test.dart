@@ -14,11 +14,16 @@ void main() {
     await AppInjection.inject();
   });
 
+  Future<void> initialConfig(WidgetTester tester) async {
+    await tester.pumpWidget(const NasaApp());
+
+    // 300 milliseconds to await get images
+    await tester.pumpAndSettle(const Duration(milliseconds: 300));
+  }
+
   group('Find items', () {
     testWidgets('should finds list view widget', (tester) async {
-      await tester.pumpWidget(const NasaApp());
-
-      await tester.pumpAndSettle();
+      await initialConfig(tester);
 
       final finder = find.byType(ListView);
 
@@ -27,9 +32,7 @@ void main() {
 
     testWidgets('should finds first date item on list view widget',
         (tester) async {
-      await tester.pumpWidget(const NasaApp());
-
-      await tester.pumpAndSettle();
+      await initialConfig(tester);
 
       final finder = find.byKey(const Key('date_key_0'));
 
@@ -38,9 +41,7 @@ void main() {
 
     testWidgets('should finds first title item on list view widget',
         (tester) async {
-      await tester.pumpWidget(const NasaApp());
-
-      await tester.pumpAndSettle();
+      await initialConfig(tester);
 
       final finder = find.byKey(const Key('title_key_0'));
 
@@ -49,9 +50,7 @@ void main() {
 
     testWidgets('should finds first image item on list view widget',
         (tester) async {
-      await tester.pumpWidget(const NasaApp());
-
-      await tester.pumpAndSettle();
+      await initialConfig(tester);
 
       final finder = find.byKey(const Key('image_key_0'));
 
@@ -59,9 +58,7 @@ void main() {
     });
 
     testWidgets('should finds search bar on screen', (tester) async {
-      await tester.pumpWidget(const NasaApp());
-
-      await tester.pumpAndSettle();
+      await initialConfig(tester);
 
       final finder = find.byType(SearchBarWidget);
 
@@ -71,9 +68,7 @@ void main() {
 
   group('Interact with Widgets', () {
     testWidgets('should go to image details if click on text', (tester) async {
-      await tester.pumpWidget(const NasaApp());
-
-      await tester.pumpAndSettle();
+      await initialConfig(tester);
 
       final finder = find.byKey(const Key('title_key_0'));
 
@@ -88,9 +83,7 @@ void main() {
     });
 
     testWidgets('should filter list if type on search field', (tester) async {
-      await tester.pumpWidget(const NasaApp());
-
-      await tester.pumpAndSettle();
+      await initialConfig(tester);
 
       final finderFirst = find.byKey(const Key('title_key_0'));
       final finderSecond = find.byKey(const Key('title_key_1'));
