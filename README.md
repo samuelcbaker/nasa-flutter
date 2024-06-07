@@ -69,7 +69,7 @@ flutter run
 - [flutter_bloc](https://pub.dev/packages/flutter_bloc) → state management
 - [get_it](https://pub.dev/packages/get_it) → dependency injection
 - [dio](https://pub.dev/packages/dio) → http requests
-- [intl](https://pub.dev/packages/get_it) → work with date time formats
+- [intl](https://pub.dev/packages/intl) → work with date time formats
 - [hive](https://pub.dev/packages/hive) → NoSQL database, offline feature
 - [equatable](https://pub.dev/packages/equatable) → compare objects and help in tests
 - [connectivity_plus](https://pub.dev/packages/connectivity_plus) → verify if user is offline
